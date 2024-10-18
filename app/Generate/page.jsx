@@ -1,12 +1,10 @@
 "use client";
 import React from "react";
+import jsPDF from "jspdf";
 import { ToastContainer, toast } from "react-toastify";
-import { Field, ErrorMessage, resetForm, useFormikContext } from "formik";
-import { object, string, date } from "yup";
 import "react-toastify/dist/ReactToastify.css";
 import { FaSearch } from "react-icons/fa";
 import PayslipPreview from "../components/preview";
-import FormikStepper from "../components/formikStepper";
 import { useState, useEffect } from "react";
 
 const Page = () => {
@@ -15,6 +13,8 @@ const Page = () => {
     payPeriod: "",
     noofDays: "",
     Salary: "",
+    allowance: "",
+    Deductions: "",
   });
   const [showPreview, setshowpreview] = useState(false);
 
@@ -47,47 +47,27 @@ const Page = () => {
   };
 
   const generateSlip = () => {
-    const doc = new jsPDF();
+    const doc = new jsPDF("p", "pt", "a4");
 
-    // Add a title
-    doc.setFontSize(18);
-    doc.text("Employee Payslip", 14, 22);
+    const content = document.getElementById("payslip-content");
 
-    // Add employee details
-    doc.setFontSize(12);
-    doc.text(
-      `Employee Name: ${employee.firstName} ${employee.lastName}`,
-      14,
-      35
-    );
-    doc.text(`Job Role: ${employee.jobRole}`, 14, 42);
-    doc.text(`Address: ${employee.Address}`, 14, 49);
-    doc.text(`Company Name: ${employee.companyName}`, 14, 56);
-    doc.text(`Joining Date: ${employee.Rdate}`, 14, 63);
-
-    // Generate payslip details or table (example)
-    const tableColumn = ["Description", "Amount"];
-    const tableRows = [
-      ["Basic Salary", "$3000"],
-      ["Allowance", "$500"],
-      ["Deductions", "$100"],
-      ["Net Salary", "$3400"],
-    ];
-
-    // Add table
-    doc.autoTable({
-      startY: 70,
-      head: [tableColumn],
-      body: tableRows,
+    doc.html(content, {
+      callback: function (doc) {
+        // Save the PDF
+        doc.save("employee_payslip.pdf");
+      },
+      x: 20,
+      y: 20,
+      width: 500,
+      windowWidth: 650,
     });
 
-    // Save the PDF
-    doc.save("employee_payslip.pdf");
+    setshowpreview(false);
   };
 
   return (
-    <div className="flex flex-col items-center justify-center">
-      <h3>Generate Payslip</h3>
+    <div className="flex flex-col items-center justify-center p-5">
+      <h3 className="text-2xl font-bold">Generate Payslip</h3>
       <div className="flex w-2/5 relative text-center items-center m-3">
         <input
           className="p-4 bg-gray-200  w-full"
@@ -105,8 +85,8 @@ const Page = () => {
 
       {/* Preview Section */}
       {showPreview && (
-        <div className=" w-2/5 items-center m-3">
-          <form className="w-full">
+        <div className=" flex w-full  justify-between m-3">
+          <form className="w-1/2 mx-3">
             <div className="my-3">
               <label htmlFor="">Pay Period</label>
               <input
@@ -125,27 +105,56 @@ const Page = () => {
                 value={employeeData.noofDays}
                 onChange={handleChange}
                 type="text"
-                placeholder="Ex: Oct 2024"
+                placeholder="Ex: 30 days"
                 className="p-4 bg-gray-200  w-full"
               />
             </div>
             <div className="my-3">
-              <label htmlFor="">Salary</label>
+              <label htmlFor="">Basic Salary</label>
               <input
                 name="Salary"
                 value={employeeData.Salary}
                 onChange={handleChange}
                 type="text"
-                placeholder="Ex: Oct 2024"
+                placeholder="Ex: 50,000"
+                className="p-4 bg-gray-200  w-full"
+              />
+            </div>
+            <div className="my-3">
+              <label htmlFor="">Allowance</label>
+              <input
+                name="allowance"
+                value={employeeData.allowance}
+                onChange={handleChange}
+                type="text"
+                placeholder="Ex: "
+                className="p-4 bg-gray-200  w-full"
+              />
+            </div>
+            <div className="my-3">
+              <label htmlFor="">Deductions</label>
+              <input
+                name="Deductions"
+                value={employeeData.Deductions}
+                onChange={handleChange}
+                type="text"
+                placeholder="Ex:"
                 className="p-4 bg-gray-200  w-full"
               />
             </div>
           </form>
 
-          <PayslipPreview employee={employee} value={employeeData} />
-          <button className="p-4 bg-indigo-500 w-2/5" onClick={generateSlip}>
-            Generate
-          </button>
+          <div className="w-1/2">
+            <div id="payslip-content">
+              <PayslipPreview employee={employee} value={employeeData} />
+            </div>
+            <button
+              className="p-4 bg-indigo-500 w-3/4 my-4 block mx-auto "
+              onClick={generateSlip}
+            >
+              Generate
+            </button>
+          </div>
         </div>
       )}
       <ToastContainer />
