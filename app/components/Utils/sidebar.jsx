@@ -4,6 +4,7 @@ import { RiProfileLine, RiAiGenerate } from "react-icons/ri";
 import { CiLogout } from "react-icons/ci";
 import { IoMdHelpCircleOutline } from "react-icons/io";
 import { AiOutlineUsergroupAdd } from "react-icons/ai";
+import Logout from "./logout";
 const Sidebar = () => {
   return (
     <div className=" flex flex-col h-screen w-1/12 text-lg font-bold ">
@@ -55,7 +56,7 @@ const Sidebar = () => {
             <CiLogout />
           </span>
           <span>
-            <Link href="/">Log Out</Link>
+            <Logout/>
           </span>
         </li>
       </ul>

@@ -6,19 +6,16 @@ import { useState } from "react";
 
 const Navbar = ({ title }) => {
   const [showSearch, setshowSearch] = useState(false);
-  const [nightMode, setnightMode] = useState(false);
+  
   const clickHandler = () => {
     setshowSearch((prev) => !prev);
   };
 
   return (
-    <div className="flex items-center justify-between w-full">
+    <div className="flex items-center py-5  justify-between w-full">
       <h2 className="text-3xl font-extrabold mx-5">{title}</h2>
       <div className="flex w-2/5 h-full items-center justify-evenly text-xl font-extrabold">
-        <span>
-          <MdOutlineNightlight size={24} />
-          <MdOutlineNightlightRound size={24}/>
-        </span>
+       
         <div className="flex">
           <div className="flex items-center">
           <span>

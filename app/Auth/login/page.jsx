@@ -2,72 +2,122 @@
 import React from "react";
 import { Formik, Field, ErrorMessage } from "formik";
 import FormikComponent from "../../components/formik";
+import urls from "@/app/services/url";
 import Link from "next/link";
 import Button from "../../components/Utils/Button";
 import { MdEmail } from "react-icons/md";
-import { SlOrganization } from "react-icons/sl";
+import axios from "axios";
 import { IoEyeSharp } from "react-icons/io5";
 import { PiEyeSlashFill } from "react-icons/pi";
 import { object, string, date } from "yup";
-import { useState } from "react";
-import Image from "next/image";
+import { useState, useContext } from "react";
+import AuthContext from "@/app/context/AuthProvider";
+import { ToastContainer, toast } from "react-toastify";
+import { useRouter } from "next/navigation";
+import "react-toastify/dist/ReactToastify.css";
 
 const Page = () => {
+  const router = useRouter();
+  const { setAuth } = useContext(AuthContext);
   const [showPassword, setshowPassword] = useState(false);
 
   const togglePassword = () => {
     setshowPassword((prevState) => !prevState);
   };
 
+  const [buttonDisabled, setbuttonDisabled] = useState(false)
+
+
   return (
-    <div className="flex justify-center items-center h-screen">
-      <div className="bg-gray-800 h-full w-1/2">
-        <h3>My logo</h3>
+    <div className="sm:flex justify-center items-center h-screen">
+      <div className="bg-gray-800 sm:h-full py-5 sm:w-1/2 flex flex-col items-center justify-center">
+        <h3 className="text-customGold font-extrabold  text-xl sm:text-3xl text-center">
+          My logo
+        </h3>
       </div>
 
-      <div className="h-full w-1/2  flex flex-col justify-center text-center">
+      <div className="h-full sm:w-1/2  flex flex-col justify-center text-center ">
         <div>
-          <h3 className="text-7xl font-extrabold text-gray-600 my-5">
+          <h3 className=" text-3xl sm:text-7xl font-extrabold text-gray-600 my-5">
             Welcome Back....
           </h3>
         </div>
         <FormikComponent
           initialValues={{
-            emailOrCompany: "",
+            emailAddress: "",
             password: "",
           }}
           validationSchema={object({
-            emailOrCompany: string().required(
-              "E-mail or Company Name is required"
-            ),
+            emailAddress: string().required("E-mail  is required"),
 
             password: string().required("Password is required"),
           })}
-          onSubmit={(values, { resetForm }) => {
-            console.log(values);
+          onSubmit={async (values, { resetForm }) => {
+            setbuttonDisabled(true)
+            try {
+              console.log(values);
+              const payload = {
+                emailAddress: values.emailAddress,
+                password: values.password,
+              };
+              const response = await axios({
+                method: "post",
+                url: urls.loginUser,
+                data: payload,
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                withCredentials: true,
+              });
 
-            resetForm();
+              const accessToken = response.data.data;
+
+              if (accessToken) {
+                await setAuth({
+                  emailAddress: values.emailAddress,
+                  password: values.password,
+                  accessToken,
+                });
+                sessionStorage.setItem("accessToken", accessToken);
+                router.push("/Dashboard");
+              } else {
+                router.push("/login");
+              }
+            } catch (error) {
+              if (!error.response.data.message) {
+                console.log("No response from server");
+                toast.error("No response from server");
+              } else {
+                console.log(error.response.data.message);
+                toast.error(error.response.data.message);
+              }
+            }
+            finally{
+              setbuttonDisabled(false);
+              resetForm();
+            }
+            
           }}
         >
-          <div className="my-5 text-left">
+          <div className="my-3 sm:my-5 text-left">
             <div className="flex relative">
               <MdEmail className="absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-500 text-lg" />
               <Field
-                name="emailOrCompany"
+                name="emailAddress"
                 placeholder="Enter Email Address"
                 type="email"
-                className=" bg-gray-200 w-full rounded-xl  py-5 px-10 "
+                className=" bg-gray-200 w-full rounded-xl py-2 text-xs sm:py-5 px-10 "
               />
             </div>
 
             <ErrorMessage
-              name="emailOrCompany"
+              name="emailAddress"
               component="span"
-              className="text-red-500 p-2"
+              className="text-xs text-red-500 sm:text-sm p-2"
             />
           </div>
 
-          <div className="my-5 text-left">
+          <div className="my-3 sm:my-5 text-left">
             <div className="flex items-center relative">
               <span
                 className="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-500 text-lg
@@ -83,24 +133,26 @@ const Page = () => {
                 name="password"
                 placeholder="Enter Password"
                 type={showPassword ? "text" : "password"}
-                className="p-4 bg-gray-200 w-full rounded-xl  py-5"
+                className=" bg-gray-200 w-full rounded-xl py-2 text-xs sm:py-5 px-10 "
               />
             </div>
             <ErrorMessage
               name="password"
               component="span"
-              className="text-red-500 p-2"
+              className="text-xs text-red-500 sm:text-sm p-2"
             />
           </div>
 
           <Button
-            className="bg-customGold text-white text-2xl font-bold w-full py-5 my-10 rounded-full"
-            type="submt"
-            prop="Login"
+            className="bg-customGold text-white font-bold w-full rounded-full py-3 my-5 sm:text-2xl sm:py-5 sm:my-10 "
+            type="submit"
+            disabled ={buttonDisabled}
+            prop={buttonDisabled ? "Submitting..." : "Log In" }
+            
           />
         </FormikComponent>
         <div>
-          <p className="my-3 text-lg font-bold">
+          <p className="my-3 text-lg font-bold m-auto w-1/2 sm:w-full">
             Do not have an account?
             <span className="text-customGold mx-3 cursor-pointer">
               <Link href="/Auth/signup">SignUp</Link>
@@ -108,6 +160,7 @@ const Page = () => {
           </p>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };

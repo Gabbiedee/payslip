@@ -15,43 +15,48 @@ const FormikStepper = ({ children, ...props }) => {
     setStep((step) => step + 1);
   };
 
-  
-  
   return (
     <Formik {...props}>
-      <Form autoComplete="off"  className="text-black flex flex-col justify-between w-1/3 bg-white p-5 my-auto rounded-md shadow-2xl">
-        {currentChild}
-        <div>
-          {lastStep ? (
-            <div className="">
-              <button className="p-4  bg-customGold w-full" type="submit">
-              Submit
-            </button>
-            </div>
-            
-          ) : (
-            <button
-              className="p-4 bg-customGold w-full"
-              type="button"
-              onClick={nextHandler}
-            >
-              Next
-            </button>
-          )}
-           {step > 0 && (
-            <button
-              onClick={prevHandler}
-              className="p-4  my-3 bg-customGold w-full"
-              type="button"
-            >
-              Prev
-            </button>
-          )}
-        </div>
-      </Form>
+      {({ isSubmitting }) => (
+        <Form
+          autoComplete="off"
+          className="text-black flex flex-col justify-between w-1/3 bg-white p-5 my-auto rounded-md shadow-2xl"
+        >
+          {currentChild}
+          <div>
+            {lastStep ? (
+              <div>
+                <button
+                  className="p-4 bg-customGold w-full"
+                  type="submit"
+                  disabled={isSubmitting} // Disable button when submitting
+                >
+                  {isSubmitting ? "Submitting..." : "Submit"}
+                </button>
+              </div>
+            ) : (
+              <button
+                className="p-4 bg-customGold w-full"
+                type="button"
+                onClick={nextHandler}
+              >
+                Next
+              </button>
+            )}
+            {step > 0 && (
+              <button
+                onClick={prevHandler}
+                className="p-4 my-3 bg-customGold w-full"
+                type="button"
+              >
+                Prev
+              </button>
+            )}
+          </div>
+        </Form>
+      )}
     </Formik>
   );
 };
 
 export default FormikStepper;
-

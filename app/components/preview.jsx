@@ -1,52 +1,52 @@
 const PayslipPreview = ({ employee, value }) => {
+  if (!employee) {
+    return <p>No employee data available</p>;
+  }
   return (
-    <div className="bg-white border-2 border-indigo-600 shadow-lg  h-3/4 rounded-lg p-6 max-w-3xl mx-auto">
+    <div className="bg-white border-2 border-gray-600 shadow-lg  h-3/4 rounded-lg p-6 max-w-3xl mx-auto">
       <div className="flex justify-between">
         <div>
           <p className="font-bold">
-            <span className="text-2xl">{employee.companyName}</span>
+            <span className="text-2xl">Default</span>
           </p>
           <p className="font-bold">
-            <span className="font-normal">{employee.CAddress}</span>
+            <span className="font-normal">Default</span>
           </p>
         </div>
-        <h1 className="text-xl font-bold text-indigo-500">Employee Payslip</h1>
+        <h1 className="text-xl font-bold text-gray-800">Employee Payslip</h1>
       </div>
 
       <div className="mt-4">
-        <h2 className="bg-indigo-500 text-xl p-2 font-bold">
+        <h2 className="bg-gray-500 text-xl p-2 font-bold">
           Employee Information
         </h2>
         <p className="font-semibold my-2">
           Employee Name:{" "}
-          <span className="font-normal">
-            {employee.firstName} {employee.lastName}
-          </span>
+          <span className="font-normal">{employee.fullName}</span>
         </p>
         <p className="font-semibold my-2">
-          Job Role: <span className="font-normal">{employee.jobRole}</span>
+          Job Role: <span className="font-normal">{employee.JobRole}</span>
         </p>
         <p className="font-semibold my-2">
           Address: <span className="font-normal">{employee.Address}</span>
         </p>
 
         <p className="font-semibold my-2">
-          Joining Date: <span className="font-normal">{employee.Rdate}</span>
+          Joining Date: <span className="font-normal">{employee.Resumptiondate}</span>
         </p>
         <p className="font-semibold my-2">
           Pay Period: <span className="font-normal">{value.payPeriod}</span>
         </p>
         <p className="font-semibold my-2">
-          Number of Days:{" "}
-          <span className="font-normal">{value.noofDays}</span>
+          Number of Days: <span className="font-normal">{value.noofDays}</span>
         </p>
       </div>
 
       <table className="w-full mt-6">
         <thead>
           <tr>
-            <th className="border px-4 py-2 bg-indigo-100">Description</th>
-            <th className="border px-4 py-2 bg-indigo-100">Amount</th>
+            <th className="border px-4 py-2 bg-gray-100">Description</th>
+            <th className="border px-4 py-2 bg-gray-100">Amount</th>
           </tr>
         </thead>
         <tbody>
