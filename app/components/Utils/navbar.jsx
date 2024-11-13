@@ -12,8 +12,8 @@ const Navbar = ({ title }) => {
   };
 
   return (
-    <div className="flex items-center py-5  justify-between w-full">
-      <h2 className="text-3xl font-extrabold mx-5">{title}</h2>
+    <div className="flex items-center py-5 px-10 justify-between w-full">
+      <h2 className="text-3xl font-extrabold mx-5 ">{title}</h2>
       <div className="flex w-2/5 h-full items-center justify-evenly text-xl font-extrabold">
        
         <div className="flex">
