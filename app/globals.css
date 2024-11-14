@@ -1,6 +1,13 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  html {
+    font-size: 16px; /* Ensure a consistent font size */
+  }
 
+  body {
+    font-size: 1rem; /* Default font size for text */
+  }
+}
