@@ -28,6 +28,7 @@ const Page = () => {
       return toast.error("Enter employee name");
     }
 
+
     const token = sessionStorage.getItem("accessToken");
     try {
       const response = await axios({
@@ -39,7 +40,7 @@ const Page = () => {
         },
       });
 
-      const employees = response.data;
+      const employees = response.data.data;
       console.log("Fetched Employee Data:", employees); 
       setEmployeeDetails(employees);
       setshowpreview(true); 

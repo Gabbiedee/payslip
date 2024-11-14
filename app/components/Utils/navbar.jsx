@@ -1,34 +1,44 @@
-import React from "react";
+import React, { useState } from "react";
 import { IoIosNotificationsOutline } from "react-icons/io";
-import { MdOutlineNightlight, MdOutlineNightlightRound } from "react-icons/md";
 import { CiSearch } from "react-icons/ci";
-import { useState } from "react";
 
 const Navbar = ({ title }) => {
-  const [showSearch, setshowSearch] = useState(false);
-  
+  const [showSearch, setShowSearch] = useState(false);
+
   const clickHandler = () => {
-    setshowSearch((prev) => !prev);
+    setShowSearch((prev) => !prev);
   };
 
   return (
-    <div className="flex items-center py-5 px-10 justify-between w-full">
-      <h2 className="text-3xl font-extrabold mx-5 ">{title}</h2>
-      <div className="flex w-2/5 h-full items-center justify-evenly text-lg font-extrabold">
-       
-        <div className="flex">
-          <div className="flex items-center">
-          <span>
-            <IoIosNotificationsOutline size={36} className="mx-3"/>
-          </span>
-            <span>
-              <CiSearch onClick={clickHandler} size={36} className="mx-3" />
-            </span>
-            {showSearch ? <input type="text" className="py-3 px-5 my-2 outline-0 bg-gray-200 rounded-md" /> : ""}
-          </div>
+    <div className="flex items-center py-4 px-6 md:px-10 justify-between w-full bg-white shadow-md">
+      {/* Title */}
+      <h2 className="text-2xl md:text-xl font-extrabold">{title}</h2>
+      
+      {/* Right Side Icons and Search */}
+      <div className="flex w-auto md:w-2/5 items-center justify-end md:justify-evenly text-lg font-extrabold space-x-4 md:space-x-6">
+        
+        {/* Notification Icon */}
+        <IoIosNotificationsOutline size={20} className="cursor-pointer hidden md:block" />
+
+        {/* Search Icon and Input */}
+        <div className="relative flex items-center">
+          <CiSearch 
+            onClick={clickHandler} 
+            size={20} 
+            className="cursor-pointer"
+          />
+          {showSearch && (
+            <input 
+              type="text" 
+              placeholder="Search" 
+              className="absolute top-8 left-0 w-40 md:w-60 p-2 border rounded-md outline-none bg-gray-200" 
+            />
+          )}
         </div>
-        <div>
-          <h2>ItGabbies</h2>
+        
+        {/* Profile Name */}
+        <div className="hidden md:block">
+          <h2 className="text-sm font-semibold">ItGabbies</h2>
         </div>
       </div>
     </div>

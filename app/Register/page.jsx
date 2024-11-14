@@ -90,7 +90,7 @@ const Page = () => {
 
                   console.log(payload);
 
-                  // Sending the POST request
+                  
                   const response = await axios({
                     method: "post",
                     url: urls.registerEmployee,
@@ -100,7 +100,7 @@ const Page = () => {
                     },
                     withCredentials: true,
                   });
-                  // Handling the response
+                
                   toast.success(response.data.message);
                 } catch (error) {
                   if (!error.response) {
@@ -182,7 +182,7 @@ const Page = () => {
                         name="Gender"
                         value="Male"
                         id="male"
-                        className="hidden" // Hide default radio input
+                        className="hidden" 
                       />
                       Male
                     </label>
@@ -196,7 +196,7 @@ const Page = () => {
                         name="Gender"
                         value="Female"
                         id="female"
-                        className="hidden" // Hide default radio input
+                        className="hidden" 
                       />
                       Female
                     </label>
@@ -384,9 +384,9 @@ const Page = () => {
             </FormikStepper>
           </div>
         </div>
+        <ToastContainer />
       </div>
-      <ToastContainer />
-    </ProtectedRoute>
+     </ProtectedRoute>
   );
 };
 

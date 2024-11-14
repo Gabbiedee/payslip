@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Link from "next/link";
 import { MdDashboard } from "react-icons/md";
 import { RiProfileLine, RiAiGenerate } from "react-icons/ri";
@@ -5,61 +6,58 @@ import { CiLogout } from "react-icons/ci";
 import { IoMdHelpCircleOutline } from "react-icons/io";
 import { AiOutlineUsergroupAdd } from "react-icons/ai";
 import Logout from "./logout";
+
 const Sidebar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <div className=" flex flex-col h-screen w-1/12 text-lg font-bold ">
-      <ul className="flex flex-col h-1/2 justify-center py-5">
-        <li className="flex items-center p-5 hover:shadow-xl my-3">
-          <span className="mx-3">
-            <MdDashboard />
-          </span>
-          <span>
-            <Link href="/Dashboard">Dashboard</Link>
-          </span>
-        </li>
-        <li className="flex items-center p-5 hover:shadow-xl my-3">
-          <span className="mx-3" >
-            <RiProfileLine />
-          </span>
-          <span>
-            <Link href="/profile">Company Profile</Link>
-          </span>
-        </li>
-        <li className="flex items-center p-5 hover:shadow-xl my-3">
-          <span className="mx-3">
-            <AiOutlineUsergroupAdd />
-          </span>
-          <span>
-            <Link href="/Register">Register Employee</Link>
-          </span>
-        </li>
-        <li className="flex items-center p-5 hover:shadow-2xl my-3">
-          <span className="mx-3">
-            <RiAiGenerate />
-          </span>
-          <span>
-            <Link href="/Generate">Generate Payslip</Link>
-          </span>
-        </li>
-      </ul>
-      <ul className="flex flex-col h-1/2 justify-center ">
-        <li className="flex items-center p-5 hover:shadow-2xl my-3">
-          <span className="mx-3">
-            <IoMdHelpCircleOutline />
-          </span>
-          <span>
-            <Link href="">Get help</Link>
-          </span>
-        </li>
-        <li className="flex items-center p-5 hover:shadow-2xl my-3 text-red-500">
-          <span className="mx-3">
-            <CiLogout />
-          </span>
-          <span>
-            <Logout/>
-          </span>
-        </li>
-      </ul>
+    <div className="h-screen flex flex-col items-center justify-center text-lg font-bold md:w-1/6 md:text-sm">
+      <button
+        className="md:hidden p-4 bg-blue-500 text-white w-full text-center"
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        Menu
+      </button>
+
+      {/* Dropdown for smaller screens */}
+      <div
+        className={`flex flex-col w-full transition-all duration-300 ${
+          isOpen ? "block" : "hidden"
+        } md:flex`}
+      >
+        <ul className="flex flex-col h-1/2 w-full justify-center items-center space-y-10">
+          {[
+            { icon: <MdDashboard />, label: "Dashboard", href: "/Dashboard" },
+            { icon: <RiProfileLine />, label: "Company Profile", href: "/profile" },
+            { icon: <AiOutlineUsergroupAdd />, label: "Register Employee", href: "/Register" },
+            { icon: <RiAiGenerate />, label: "Generate Payslip", href: "/Generate" },
+          ].map(({ icon, label, href }) => (
+            <li
+              key={label}
+              className="flex items-center w-full py-4 px-6 hover:bg-gray-100 text-gray-700 transition duration-300"
+            >
+              <span className="mr-3">{icon}</span>
+              <Link href={href}>{label}</Link>
+            </li>
+          ))}
+        </ul>
+
+        {/* Bottom section with Get help and Logout */}
+        <ul className="w-full flex flex-col items-center mt-auto">
+          <li className="flex items-center w-full py-4 px-6 hover:bg-gray-100 text-gray-700 transition duration-300">
+            <span className="mr-3">
+              <IoMdHelpCircleOutline />
+            </span>
+            <Link href="#">Get help</Link>
+          </li>
+          <li className="flex items-center w-full py-4 px-6 hover:bg-red-100 text-red-500 transition duration-300">
+            <span className="mr-3">
+              <CiLogout />
+            </span>
+            <Logout />
+          </li>
+        </ul>
+      </div>
     </div>
   );
 };

@@ -6,20 +6,20 @@ import Navbar from "../components/Utils/navbar";
 
 const page = () => {
   return (
-    // <ProtectedRoute>
-      <div className=" w-screen flex h-screen items-center">
+    <ProtectedRoute>
+    <div className="w-screen h-screen flex">
       <Sidebar />
-      <div className="flex flex-col h-screen w-full">
-        <Navbar title="Dashboard"/>
-        <div className="flex h-full items-center justify-center ">
-         <p className="text-3xl font-bolder">
-         Update Company Profile to view Dashboard</p> 
-         </div>
+      <div className="flex flex-col w-full h-full">
+        <Navbar title="Dashboard" />
+        <div className="flex-1 flex items-center justify-center bg-customWhite">
+          <p className="text-3xl font-bold">
+            Update Company Profile to view Dashboard
+          </p>
+        </div>
       </div>
-      </div>
-     
-    // </ProtectedRoute>
+    </div>
+    </ProtectedRoute>
   );
 };
 
-export default page;
+export default page
