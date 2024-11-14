@@ -17,7 +17,7 @@ const Sidebar = () => {
             <Link href="/Dashboard">Dashboard</Link>
           </span>
         </li>
-        <li className="flex items-center p-5 hover:shadow-2xl my-3">
+        <li className="flex items-center p-5 hover:shadow-xl my-3">
           <span className="mx-3" >
             <RiProfileLine />
           </span>
@@ -25,7 +25,7 @@ const Sidebar = () => {
             <Link href="/profile">Company Profile</Link>
           </span>
         </li>
-        <li className="flex items-center p-5 hover:shadow-2xl my-3">
+        <li className="flex items-center p-5 hover:shadow-xl my-3">
           <span className="mx-3">
             <AiOutlineUsergroupAdd />
           </span>

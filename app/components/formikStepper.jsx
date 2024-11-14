@@ -20,7 +20,7 @@ const FormikStepper = ({ children, ...props }) => {
       {({ isSubmitting }) => (
         <Form
           autoComplete="off"
-          className="text-black flex flex-col justify-between w-1/3 bg-white p-5 my-auto rounded-md shadow-2xl"
+          className="text-black flex flex-col justify-between w-1/3 bg-white p-5 my-auto rounded-md shadow-xl"
         >
           {currentChild}
           <div>

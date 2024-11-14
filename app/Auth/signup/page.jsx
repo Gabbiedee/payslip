@@ -61,7 +61,6 @@ const Page = () => {
 
             const { emailAddress, companyName, password, Cpassword } = values;
             try {
-              setbuttonDisabled(true)
               const response = await axios({
                 method: "post",
                 url: urls.creatUser,
@@ -83,7 +82,7 @@ const Page = () => {
 
               router.push("/Auth/login");
             } catch (error) {
-              if (!error.response.data.message) {
+              if (!error.response) {
                 console.log("No response from Server");
                 toast.error("No reseponse from Server");
               } else {
@@ -186,7 +185,7 @@ const Page = () => {
           <Button
             className="bg-customGold text-white font-bold w-full rounded-full py-3 my-5 sm:text-2xl sm:py-5 sm:my-10 "
             type="submit"
-            prop={buttonDisabled ? "Submitting..." : "Sign Up" }
+            prop={buttonDisabled ? "Submitting" : "Sign In" }
             disabled ={buttonDisabled}
           />
         </FormikComponent>

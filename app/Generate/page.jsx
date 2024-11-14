@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useState, useEffect } from "react";
 import jsPDF from "jspdf";
 import axios from "axios";
@@ -13,7 +13,7 @@ import ProtectedRoute from "../services/protectedRoutes";
 
 const Page = () => {
   const [fullName, setfullName] = useState("");
-  const [employeeDetails, setemployeeDetails] = useState({});
+  const [employeeDetails, setEmployeeDetails] = useState(null);
   const [employeeData, setEmployeeData] = useState({
     payPeriod: "",
     noofDays: "",
@@ -40,16 +40,10 @@ const Page = () => {
       });
 
       const employees = response.data;
-    console.log("Fetched Employee Data:", employees); // Log response data
-    
-
-  
-    // setshowpreview(true); // Show preview after data is set
-    setfullName(""); // Clear the search input field
-
-    return employees
-   
-
+      console.log("Fetched Employee Data:", employees); 
+      setEmployeeDetails(employees);
+      setshowpreview(true); 
+      setfullName(""); 
     } catch (error) {
       if (!error.response?.data?.message) {
         console.log("Server is not Responding");
@@ -61,7 +55,6 @@ const Page = () => {
     }
   };
 
- 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setEmployeeData((prev) => ({
@@ -95,14 +88,6 @@ const Page = () => {
     setshowpreview(false); // Hide the preview after generating the slip
   };
 
-  useEffect(() => {
-    fetchEmployee().then((data)=>{
-      setemployeeDetails(data)
-      setshowpreview(true)
-    })
-  },[employeeDetails] ); // Dependency on employeeDetails to trigger effect when updated
-
-
   return (
     <ProtectedRoute>
       <div className=" w-screen flex h-screen items-start">
@@ -128,7 +113,7 @@ const Page = () => {
             </div>
 
             {/* Preview Section */}
-            {showPreview &&  (
+            {showPreview && (
               <div className=" flex w-full  justify-between m-3">
                 <form className="w-1/2 mx-3">
                   <div className="my-3">
@@ -191,7 +176,7 @@ const Page = () => {
                 <div className="w-1/2">
                   <div id="payslip-content">
                     <PayslipPreview
-                      employee={employeeDetails} // Pass employeeDetails here
+                      employee={employeeDetails}
                       value={employeeData}
                     />
                   </div>

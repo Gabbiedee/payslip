@@ -17,13 +17,13 @@ const Page = () => {
       </div>
 
       <div className="w-1/2 h-screen bg-gray-800 flex flex-col justify-center items-center text-center">
-        <h2 className="text-2xl font-bold my-3">
+        <h2 className="text-xl font-bold my-3">
           Welcome to Generate Seemless payslip
         </h2>
-        <div className="p-5 m-3 bg-white w-3/5 rounded-md shadow-2xl text-black text-lg font-bold text-center">
+        <div className="p-5 m-3 bg-white w-3/5 rounded-md shadow-xl text-black text-lg font-bold text-center">
           <Link href="/Auth/signup">Sign Up</Link>
         </div>
-        <div className="p-5 m-3 bg-white w-3/5  rounded-md shadow-2xl text-black text-lg font-bold text-center">
+        <div className="p-5 m-3 bg-white w-3/5  rounded-md shadow-xl text-black text-lg font-bold text-center">
           <Link href="/Auth/login">Login</Link>
         </div>
       </div>
