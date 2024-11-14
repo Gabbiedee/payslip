@@ -95,12 +95,12 @@ const Page = () => {
     setshowpreview(false); // Hide the preview after generating the slip
   };
 
-  // useEffect(() => {
-  //   fetchEmployee().then((data)=>{
-  //     setemployeeDetails(data)
-  //     setshowpreview(true)
-  //   })
-  // }, ); // Dependency on employeeDetails to trigger effect when updated
+  useEffect(() => {
+    fetchEmployee().then((data)=>{
+      setemployeeDetails(data)
+      setshowpreview(true)
+    })
+  },[employeeDetails] ); // Dependency on employeeDetails to trigger effect when updated
 
 
   return (
