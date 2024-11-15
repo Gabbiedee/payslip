@@ -18,12 +18,11 @@ import { useRouter } from "next/navigation";
 
 const Page = () => {
   const [showPassword, setshowPassword] = useState(false);
-  
-  
+
   const togglePassword = () => {
     setshowPassword((prevState) => !prevState);
   };
-  const [buttonDisabled, setbuttonDisabled] = useState(false)
+  const [buttonDisabled, setbuttonDisabled] = useState(false);
 
   const router = useRouter();
 
@@ -37,7 +36,7 @@ const Page = () => {
 
       <div className="h-full sm:w-1/2  flex flex-col justify-center text-center ">
         <div>
-          <h3 className=" text-3xl sm:text-7xl font-extrabold text-gray-600 my-5">
+          <h3 className=" text-3xl font-extrabold text-gray-600 my-2">
             Create Account
           </h3>
         </div>
@@ -89,22 +88,20 @@ const Page = () => {
                 console.log(error.response.data.message);
                 toast.error(error.response.data.message);
               }
-            } finally{
+            } finally {
               setbuttonDisabled(false);
               resetForm();
             }
-
-            
           }}
         >
-          <div className="my-3 sm:my-5 text-left">
+          <div className="my-2 text-left">
             <div className="flex relative">
-              <MdEmail className="absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-500 text-lg" />
+              <MdEmail className="absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-500 text-sm" />
               <Field
                 name="emailAddress"
                 placeholder="Enter Email Address"
                 type="email"
-                className=" bg-gray-200 w-full rounded-xl py-2 text-xs sm:py-5 px-10 "
+                className=" bg-gray-200 w-full rounded-xl py-2 text-xs md:py-3 px-10"
               />
             </div>
 
@@ -114,16 +111,16 @@ const Page = () => {
               className="text-xs text-red-500 sm:text-sm p-2"
             />
           </div>
-          <div className="my-3 sm:my-5 text-left">
+          <div className="my-2 text-left">
             <div className="flex relative">
               <SlOrganization
-                className="absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-500 text-lg
+                className="absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-500 text-sm
             "
               />
               <Field
                 name="companyName"
                 placeholder="Enter Organisation Name"
-                className=" bg-gray-200 w-full rounded-xl py-2 text-xs sm:py-5 px-10 "
+                className=" bg-gray-200 w-full rounded-xl py-2 text-xs md:py-3 px-10"
               />
             </div>
 
@@ -133,10 +130,10 @@ const Page = () => {
               className="text-xs text-red-500 sm:text-sm p-2"
             />
           </div>
-          <div className="my-3 sm:my-5 text-left">
+          <div className="my-2 text-left">
             <div className="flex items-center relative">
               <span
-                className="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-500 text-lg
+                className="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-500 text-sm
             "
               >
                 {showPassword ? (
@@ -149,7 +146,7 @@ const Page = () => {
                 name="password"
                 placeholder="Enter Password"
                 type={showPassword ? "text" : "password"}
-                className=" bg-gray-200 w-full rounded-xl py-2 text-xs sm:py-5 px-10"
+                className=" bg-gray-200 w-full rounded-xl py-2 text-xs md:py-3 px-5"
               />
             </div>
             <ErrorMessage
@@ -158,42 +155,44 @@ const Page = () => {
               className="text-xs text-red-500 sm:text-sm p-2"
             />
           </div>
-          <div className="relative my-5">
-            <span
-              className="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-500 text-lg
+          <div className="my-2 text-left">
+            <div className=" flex items-center relative">
+              <span
+                className="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-500 text-sm
             "
-            >
-              {showPassword ? (
-                <IoEyeSharp onClick={togglePassword} />
-              ) : (
-                <PiEyeSlashFill onClick={togglePassword} />
-              )}
-            </span>
-            <Field
-              name="Cpassword"
-              placeholder="Confirm Password"
-              type={showPassword ? "text" : "password"}
-              className=" bg-gray-200 w-full rounded-xl py-2 text-xs sm:py-5 px-10 "
-            />
-            <ErrorMessage
-              name="Cpassword"
-              component="span"
-              className="text-xs text-red-500 sm:text-sm p-2"
-            />
+              >
+                {showPassword ? (
+                  <IoEyeSharp onClick={togglePassword} />
+                ) : (
+                  <PiEyeSlashFill onClick={togglePassword} />
+                )}
+              </span>
+              <Field
+                name="Cpassword"
+                placeholder="Confirm Password"
+                type={showPassword ? "text" : "password"}
+                className=" bg-gray-200 w-full rounded-xl py-2 text-xs md:py-3 px-5 "
+              />
+              <ErrorMessage
+                name="Cpassword"
+                component="span"
+                className="text-xs text-red-500 sm:text-sm p-2"
+              />
+            </div>
           </div>
 
           <Button
-            className="bg-customGold text-white font-bold w-full rounded-full py-3 my-5 sm:text-2xl sm:py-5 sm:my-10 "
+            className="bg-customGold text-white font-bold w-full rounded-full py-2 my-2 md:text-sm  "
             type="submit"
-            prop={buttonDisabled ? "Submitting" : "Sign In" }
-            disabled ={buttonDisabled}
+            disabled={buttonDisabled}
+            prop={buttonDisabled ? "Submitting..." : "Sign In"}
           />
         </FormikComponent>
         <div>
-          <p className="my-3 text-lg font-bold m-auto w-1/2 sm:w-full">
-            I already have an account?
-            <span className="text-customGold cursor-pointer mx-3">
-              <Link href="/Auth/login">Login</Link>
+          <p className="my-3 text-sm font-bold m-auto w-1/2 sm:w-full">
+            I already have a account?
+            <span className="text-customGold mx-3 cursor-pointer">
+              <Link href="/Auth/login">Log In</Link>
             </span>
           </p>
         </div>

@@ -46,12 +46,12 @@ const Page = () => {
       setshowpreview(true); 
       setfullName(""); 
     } catch (error) {
-      if (!error.response?.data?.message) {
-        console.log("Server is not Responding");
-        toast.error("Server is not Responding");
+      if (!error.response?.message) {
+        console.log("Server is not responding");
+        toast.error("Employee not found");
       } else {
-        console.log(error.response.data.message);
-        toast.error(error.response.data.message);
+        console.log(error.response.message);
+        toast.error(error.response.message);
       }
     }
   };

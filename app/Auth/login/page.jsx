@@ -25,8 +25,7 @@ const Page = () => {
     setshowPassword((prevState) => !prevState);
   };
 
-  const [buttonDisabled, setbuttonDisabled] = useState(false)
-
+  const [buttonDisabled, setbuttonDisabled] = useState(false);
 
   return (
     <div className="sm:flex justify-center items-center h-screen">
@@ -38,7 +37,7 @@ const Page = () => {
 
       <div className="h-full sm:w-1/2  flex flex-col justify-center text-center ">
         <div>
-          <h3 className=" text-3xl sm:text-7xl font-extrabold text-gray-600 my-5">
+          <h3 className=" text-3xl font-extrabold text-gray-600 my-2">
             Welcome Back....
           </h3>
         </div>
@@ -53,7 +52,7 @@ const Page = () => {
             password: string().required("Password is required"),
           })}
           onSubmit={async (values, { resetForm }) => {
-            setbuttonDisabled(true)
+            setbuttonDisabled(true);
             try {
               console.log(values);
               const payload = {
@@ -91,36 +90,34 @@ const Page = () => {
                 console.log(error.response.data.message);
                 toast.error(error.response.data.message);
               }
-            }
-            finally{
+            } finally {
               setbuttonDisabled(false);
               resetForm();
             }
-            
           }}
         >
-          <div className="my-3 sm:my-5 text-left">
+          <div className="my-2 text-left">
             <div className="flex relative">
-              <MdEmail className="absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-500 text-lg" />
+              <MdEmail className="absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-500 text-sm" />
               <Field
                 name="emailAddress"
                 placeholder="Enter Email Address"
                 type="email"
-                className=" bg-gray-200 w-full rounded-xl py-2 text-xs sm:py-5 px-10 "
+                className=" bg-gray-200 w-full rounded-xl py-2 text-xs md:py-3 px-10 "
               />
             </div>
 
             <ErrorMessage
               name="emailAddress"
               component="span"
-              className="text-xs text-red-500 sm:text-sm p-2"
+              className="text-xs text-red-500 md:text-sm p-1"
             />
           </div>
 
-          <div className="my-3 sm:my-5 text-left">
+          <div className="my-2 text-left">
             <div className="flex items-center relative">
               <span
-                className="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-500 text-lg
+                className="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-500 text-md
             "
               >
                 {showPassword ? (
@@ -133,26 +130,25 @@ const Page = () => {
                 name="password"
                 placeholder="Enter Password"
                 type={showPassword ? "text" : "password"}
-                className=" bg-gray-200 w-full rounded-xl py-2 text-xs sm:py-5 px-10 "
+                className=" bg-gray-200 w-full rounded-xl py-2 text-xs sm:py-3 px-5 "
               />
             </div>
             <ErrorMessage
               name="password"
               component="span"
-              className="text-xs text-red-500 sm:text-sm p-2"
+              className="text-xs text-red-500 sm:text-sm p-1"
             />
           </div>
 
           <Button
-            className="bg-customGold text-white font-bold w-full rounded-full py-3 my-5 sm:text-2xl sm:py-5 sm:my-10 "
+            className="bg-customGold text-white font-bold w-full rounded-full py-2 my-2 md:text-sm "
             type="submit"
-            disabled ={buttonDisabled}
-            prop={buttonDisabled ? "Submitting..." : "Log In" }
-            
+            disabled={buttonDisabled}
+            prop={buttonDisabled ? "Submitting..." : "Log In"}
           />
         </FormikComponent>
         <div>
-          <p className="my-3 text-lg font-bold m-auto w-1/2 sm:w-full">
+          <p className="my-3 text-sm font-bold m-auto w-1/2 sm:w-full">
             Do not have an account?
             <span className="text-customGold mx-3 cursor-pointer">
               <Link href="/Auth/signup">SignUp</Link>
