@@ -1,9 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from  "axios";
+import urls from "@/app/services/url";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { CiSearch } from "react-icons/ci";
 
 const Navbar = ({ title }) => {
   const [showSearch, setShowSearch] = useState(false);
+  const [companyName, setCompanyName] = useState("")
+
+  const token = sessionStorage.getItem("accessToken")
+
+  const getCompany = async ()=> {
+    const response = await axios({
+      method: "get",
+      url: urls.getCompanyName,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data.data
+  }
+
+  useEffect(() => {
+    (async () => {
+      const data = await getCompany();
+      setCompanyName(data);
+    })();
+  }, []);
 
   const clickHandler = () => {
     setShowSearch((prev) => !prev);
@@ -38,7 +61,7 @@ const Navbar = ({ title }) => {
         
         {/* Profile Name */}
         <div className="hidden md:block">
-          <h2 className="text-sm font-semibold">ItGabbies</h2>
+          <h2 className="text-sm font-semibold">{companyName}</h2>
         </div>
       </div>
     </div>
