@@ -26,10 +26,10 @@ const Page = () => {
   const [companyDetails, setCompanyDetails] = useState(null)
 
 
-  const token = sessionStorage.getItem("accessToken");
-
 
     const getCompany = async ()=> {
+      const token = sessionStorage.getItem("accessToken");
+
       const response = await axios({
         method: "get",
         url: urls.getCompanyProfile,
@@ -53,6 +53,8 @@ const Page = () => {
     if (!fullName) {
       return toast.error("Enter employee name");
     }
+    const token = sessionStorage.getItem("accessToken");
+
     try {
       const response = await axios({
         method: "get",
