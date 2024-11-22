@@ -79,7 +79,7 @@ const Page = () => {
               console.log(response.message);
               console.log(response.data);
 
-              router.push("/Auth/login");
+              router.push("/CompanyProfile");
             } catch (error) {
               if (!error.response) {
                 console.log("No response from Server");
@@ -93,6 +93,7 @@ const Page = () => {
               resetForm();
             }
           }}
+          className="text-black flex flex-col justify-between bg-white p-5  w-3/4 m-auto rounded-md shadow-xl"
         >
           <div className="my-2 text-left">
             <div className="flex relative">

@@ -1,4 +1,4 @@
-const PayslipPreview = ({ employee, value }) => {
+const PayslipPreview = ({ employee, company, value }) => {
   if (!employee) {
     return <p>No employee data available</p>;
   }
@@ -7,10 +7,10 @@ const PayslipPreview = ({ employee, value }) => {
       <div className="flex justify-between">
         <div>
           <p className="font-bold">
-            <span className="text-2xl">Default</span>
+            <span className="text-2xl">{company.organisationName}</span>
           </p>
           <p className="font-bold">
-            <span className="font-normal">Default</span>
+            <span className="font-normal">{company.Address}</span>
           </p>
         </div>
         <h1 className="text-xl font-bold text-gray-800">Employee Payslip</h1>
@@ -32,7 +32,8 @@ const PayslipPreview = ({ employee, value }) => {
         </p>
 
         <p className="font-semibold my-2">
-          Joining Date: <span className="font-normal">{employee.Resumptiondate}</span>
+          Joining Date:{" "}
+          <span className="font-normal">{employee.Resumptiondate}</span>
         </p>
         <p className="font-semibold my-2">
           Pay Period: <span className="font-normal">{value.payPeriod}</span>
@@ -61,12 +62,6 @@ const PayslipPreview = ({ employee, value }) => {
           <tr>
             <td className="border px-4 py-2">Deductions</td>
             <td className="border px-4 py-2">{value.Deductions}</td>
-          </tr>
-          <tr>
-            <td className="border px-4 py-2 font-bold">Net Salary</td>
-            <td className="border px-4 py-2 font-bold">
-              ${value.Salary - value.Deductions + parseFloat(value.allowance)}
-            </td>
           </tr>
         </tbody>
       </table>

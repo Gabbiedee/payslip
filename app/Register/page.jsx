@@ -103,14 +103,18 @@ const Page = () => {
                 
                   toast.success(response.data.message);
                 } catch (error) {
-                  if (!error.response) {
-                    console.log("No response from server");
-                    toast.error("No response from server");
-                  } else {
+                  if (error.response && error.response.data && error.response.data.message) {
                     console.log(error.response.data.message);
                     toast.error(error.response.data.message);
+                  } else if (error.response) {
+                    console.log("Error response:", error.response);
+                    toast.error("An error occurred. Please try again.");
+                  } else {
+                    console.log("Server is not responding");
+                    toast.error("Server is not responding");
                   }
-                } finally {
+                }
+                finally {
                   resetForm();
                   setSubmitting(false);
                 }

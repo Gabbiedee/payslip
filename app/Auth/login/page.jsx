@@ -95,6 +95,7 @@ const Page = () => {
               resetForm();
             }
           }}
+           className="text-black flex flex-col justify-between bg-white p-5  w-3/4 m-auto rounded-md shadow-xl"
         >
           <div className="my-2 text-left">
             <div className="flex relative">

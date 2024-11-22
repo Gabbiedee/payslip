@@ -28,7 +28,7 @@ const Sidebar = () => {
         <ul className="flex flex-col h-1/2 w-full justify-center items-center space-y-10">
           {[
             { icon: <MdDashboard />, label: "Dashboard", href: "/Dashboard" },
-            { icon: <RiProfileLine />, label: "Company Profile", href: "/profile" },
+            { icon: <RiProfileLine />, label: "Company Profile", href: "/CompanyProfile" },
             { icon: <AiOutlineUsergroupAdd />, label: "Register Employee", href: "/Register" },
             { icon: <RiAiGenerate />, label: "Generate Payslip", href: "/Generate" },
           ].map(({ icon, label, href }) => (

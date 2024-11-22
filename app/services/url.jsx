@@ -7,7 +7,9 @@ const urls = {
   loginUser: `${baseUrl}/auth/login`,
   registerEmployee: `${baseUrl}/employee/register`,
   getEmployee: `${baseUrl}/employee/searchEmployee`,
-  getCompanyName: `${baseUrl}/user/getCompanyName`,
+  getAllEmployees: `${baseUrl}/employee/`,
+  getCompanyProfile: `${baseUrl}/user/getCompany`,
+  updateCompanyProfile: `${baseUrl}/user/updateProfile`,
 
 }
 

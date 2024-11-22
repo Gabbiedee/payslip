@@ -22,14 +22,36 @@ const Page = () => {
     Deductions: "",
   });
   const [showPreview, setshowpreview] = useState(false);
+  const [companyDetails, setCompanyDetails] = useState(null)
+
+
+  const token = sessionStorage.getItem("accessToken");
+
+
+    const getCompany = async ()=> {
+      const response = await axios({
+        method: "get",
+        url: urls.getCompanyProfile,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log(response.data.data)
+      return response.data.data
+    }
+  
+    useEffect(() => {
+      (async () => {
+        const data = await getCompany();
+        setCompanyDetails(data);
+      })();
+    }, []);
+  
 
   const fetchEmployee = async () => {
     if (!fullName) {
       return toast.error("Enter employee name");
     }
-
-
-    const token = sessionStorage.getItem("accessToken");
     try {
       const response = await axios({
         method: "get",
@@ -40,18 +62,21 @@ const Page = () => {
         },
       });
 
-      const employees = response.data.data;
+      const employees = response.data.data[0];
       console.log("Fetched Employee Data:", employees); 
       setEmployeeDetails(employees);
       setshowpreview(true); 
       setfullName(""); 
     } catch (error) {
-      if (!error.response?.message) {
-        console.log("Server is not responding");
-        toast.error("Employee not found");
+      if (error.response && error.response.data && error.response.data.message) {
+        console.log(error.response.data.message);
+        toast.error(error.response.data.message);
+      } else if (error.response) {
+        console.log("Error response:", error.response);
+        toast.error("An error occurred. Please try again.");
       } else {
-        console.log(error.response.message);
-        toast.error(error.response.message);
+        console.log("Server is not responding");
+        toast.error("Server is not responding");
       }
     }
   };
@@ -68,7 +93,7 @@ const Page = () => {
     const { payPeriod, Salary } = employeeData;
 
     if (!payPeriod || !Salary) {
-      return alert("Kindly provide all fields");
+      return toast.error("Kindly provide all fields");
     }
 
     const doc = new jsPDF("p", "pt", "a4");
@@ -100,7 +125,7 @@ const Page = () => {
             <div className="flex w-2/5 relative text-center items-center m-3">
               <input
                 className="p-4 bg-gray-200  w-full"
-                placeholder="Search for Employee"
+                placeholder="Search for Employee by Full Name"
                 type="text"
                 value={fullName}
                 onChange={(e) => {
@@ -178,6 +203,7 @@ const Page = () => {
                   <div id="payslip-content">
                     <PayslipPreview
                       employee={employeeDetails}
+                      company = {companyDetails}
                       value={employeeData}
                     />
                   </div>

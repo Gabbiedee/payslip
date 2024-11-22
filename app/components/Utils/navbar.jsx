@@ -13,12 +13,13 @@ const Navbar = ({ title }) => {
   const getCompany = async ()=> {
     const response = await axios({
       method: "get",
-      url: urls.getCompanyName,
+      url: urls.getCompanyProfile,
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
-    return response.data.data
+    console.log(response.data.data.organisationName)
+    return response.data.data.organisationName
   }
 
   useEffect(() => {
