@@ -6,7 +6,7 @@ import Sidebar from "../components/Utils/sidebar";
 import Navbar from "../components/Utils/navbar";
 import FormikComponent from "../components/formik";
 import urls from "@/app/services/url";
-
+import AuthContext from "../context/AuthProvider";
 import Button from "../components/Utils/Button";
 
 import axios from "axios";
@@ -17,7 +17,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Page = () => {
-    const { auth, setAuth } = useContext(AuthContext);
+ const { auth, setAuth } = useContext(AuthContext);
   const [buttonDisabled, setbuttonDisabled] = useState(false);
 
   return (
