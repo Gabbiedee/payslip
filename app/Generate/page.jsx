@@ -28,6 +28,8 @@ const Page = () => {
 
 
     const getCompany = async ()=> {
+      if (typeof window === "undefined") return;
+
       const token = sessionStorage.getItem("accessToken");
 
       const response = await axios({
@@ -50,6 +52,8 @@ const Page = () => {
   
 
   const fetchEmployee = async () => {
+    if (typeof window === "undefined") return;
+    
     if (!fullName) {
       return toast.error("Enter employee name");
     }
