@@ -17,6 +17,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Page = () => {
+    const { auth, setAuth } = useContext(AuthContext);
   const [buttonDisabled, setbuttonDisabled] = useState(false);
 
   return (
